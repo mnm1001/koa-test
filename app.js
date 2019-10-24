@@ -8,7 +8,7 @@ const app = new Koa();
 
 app.use(async (ctx, next) => {
   console.log(`${ctx.request.method} ${ctx.request.url}`); // 打印URL
-  console.log(ctx.request); // 打印URL
+  // console.log(ctx.request); // 打印URL
   await next(); // 调用下一个middleware
   console.log(2222, 2222);
 });
@@ -23,8 +23,15 @@ app.use(async (ctx, next) => {
 app.use(async (ctx, next) => {
   await next();
   ctx.response.type = 'text/html';
-  ctx.response.type = 'text/html';
-  ctx.res.writeHead(200, {'Set-Cookie': 'aaa=text/png'});
+  ctx.cookies.set('username','lisa',{
+    domain:'localhost',
+    path:'',   //cookie写入的路径
+    maxAge:0,
+    // expires:new Date('2020-07-06'),
+    httpOnly:false,
+    overwrite:false
+  })
+  // ctx.res.writeHead(200, {'Set-Cookie': 'aaa=text/png'});
   ctx.response.body = '<h1>Hello, koa2!</h1>';
   console.log(3333333, 2222);
 });
