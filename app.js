@@ -21,8 +21,19 @@ app.use(async (ctx, next) => {
 });
 
 app.use(async (ctx, next) => {
+
+  var res=ctx.response
+  ctx.response.set('Access-Control-Allow-Origin', 'https://www.baidu.com')
+  var send = function(row) {
+      res.write("data: " + JSON.stringify(row) + "\n\n");
+  };
+
+  return
+
+
   await next();
   ctx.response.type = 'text/html';
+  ctx.response.set('Access-Control-Allow-Origin', 'https://www.3baidu.com')
   ctx.cookies.set('username','lisa',{
     domain:'localhost',
     path:'',   //cookie写入的路径
@@ -33,7 +44,7 @@ app.use(async (ctx, next) => {
   })
   // ctx.res.writeHead(200, {'Set-Cookie': 'aaa=text/png'});
   ctx.response.body = '<h1>Hello, koa2!</h1>';
-  console.log(3333333, 2222);
+  console.log(new Date());
 });
 
 // 在端口3000监听:
